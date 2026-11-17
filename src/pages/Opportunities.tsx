@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { LuWandSparkles, LuTrash2, LuBan, LuRadar, LuGrid2X2 } from 'react-icons/lu';
 import { useApp } from '../store/AppContext';
 import { useToast } from '../store/ToastContext';
@@ -30,6 +30,7 @@ export default function Opportunities({ params }: PageProps) {
   const [type, setType] = useState('');
   const [openId, setOpenId] = useState<string | null>(params.o ?? null);
   const [toDelete, setToDelete] = useState<Opportunity | null>(null);
+  useEffect(() => { if (params.o) setOpenId(params.o); }, [params.o]);
 
   const ranked = useMemo(() => rankOpportunities(data.opportunities, problems), [data.opportunities, problems]);
   const all = useMemo(() => [...ranked, ...data.opportunities.filter((o) => o.status === 'descartada')], [ranked, data.opportunities]);

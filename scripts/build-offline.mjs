@@ -68,8 +68,8 @@ const favicon = fs.readFileSync(path.join(root, 'public/favicon.svg'), 'utf8');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const shell = (head, body) =>
   html
-    .replace('<link rel="icon" type="image/svg+xml" href="./favicon.svg" />', `<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,${encodeURIComponent(favicon)}" />${head}`)
-    .replace('<script type="module" src="/src/main.tsx"></script>', body);
+    .replace('<link rel="icon" type="image/svg+xml" href="./favicon.svg" />', () => `<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,${encodeURIComponent(favicon)}" />${head}`)
+    .replace('<script type="module" src="/src/main.tsx"></script>', () => body); // função: evita interpretar "$&" no código
 
 fs.writeFileSync(path.join(out, 'assets/app.js'), js);
 fs.writeFileSync(path.join(out, 'assets/app.css'), css);
