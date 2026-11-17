@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Segoe UI", ui-sans-serif, system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html, body, #root { height: 100%; }
+body {
+  background: #f5f7fb;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv11", "ss01";
+}
+
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes toast-in { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes modal-in { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(59,130,246,.45); } 100% { box-shadow: 0 0 0 10px rgba(59,130,246,0); } }
+@keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+
+.page-enter { animation: fade-up .28s ease-out both; }
+.toast-in { animation: toast-in .2s ease-out both; }
+.modal-in { animation: modal-in .2s ease-out both; }
+.pulse-ring { animation: pulse-ring 1.4s infinite; }
+.no-anim *, .no-anim *::before, .no-anim *::after { animation: none !important; transition: none !important; }
+
+.hero-grid {
+  background-image:
+    radial-gradient(circle at 85% 20%, rgba(59,130,246,.35), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(16,185,129,.18), transparent 40%),
+    linear-gradient(135deg, #0b1733 0%, #132a5e 60%, #1e3a8a 100%);
+}
+
+/* Slides (16:9) */
+.slide { aspect-ratio: 16 / 9; container-type: inline-size; }
+.slide .s-title { font-size: 4.2cqw; line-height: 1.1; }
+.slide .s-sub { font-size: 1.7cqw; }
+.slide .s-body { font-size: 1.45cqw; line-height: 1.45; }
+.slide .s-small { font-size: 1.1cqw; }
+.slide .s-big { font-size: 6cqw; line-height: 1; }
+.slide [contenteditable="true"] { outline: 2px dashed rgba(59,130,246,.55); outline-offset: 3px; border-radius: 4px; cursor: text; }
+
+/* Impressão: somente a área marcada como .print-area */
+@media print {
+  @page { size: A4; margin: 0; }
+  body { background: #fff; }
+  .no-print, .sidebar, header { display: none !important; }
+  .print-shell { padding: 0 !important; margin: 0 !important; }
+  .print-hide { display: none !important; }
+  .print-area { box-shadow: none !important; border: 0 !important; margin: 0 !important; }
+  .print-page { break-after: page; page-break-after: always; min-height: 297mm; }
+  .print-page:last-child { break-after: auto; }
+  .print-slides .slide { break-after: page; page-break-after: always; width: 100%; border-radius: 0 !important; box-shadow: none !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
